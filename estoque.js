@@ -12,4 +12,4 @@ let estoque ={
 function getEstoque(){
     return structedClone(estoque);
 }
-export {getEtoque};
+export {getEstoque};
