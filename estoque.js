@@ -1,75 +1,68 @@
-let estoque = {
-    'joao': [
-        {'tipo': 'maca', 'quantidade': 1}
-    ],
-    'maria': [
-        {'tipo': 'maca', 'quantidade': 2}
-    ]
+let estoque ={
+    'joao':[
+        {'tipo': 'maca', 'quantidade': 1},
+],
+    'maria':[
+        {'tipo': 'maca', 'quantidade': 2},
+],
 };
 
 function getEstoque() {
     return structuredClone(estoque);
 }
 
-function limpaEstoque() {
-    estoque = {};
-}
 
 function transacaoNoEstoque(origem, destino, tipo, quantidade) {
     if (!estoque[origem] && origem !== "pomar") {
         estoque[origem] = [];
     }
-
     if (!estoque[destino] && destino !== "pomar") {
         estoque[destino] = [];
-    }
-
+    }    
     if (quantidade < 0 || origem === destino) {
         return;
     }
     if (destino === "pomar") {
         let itemEncontrado = estoque[origem].find(item => item.tipo === tipo);
-
+        
         if (itemEncontrado) {
-            if (itemEncontrado.quantidade >= quantidade) {
+            if(itemEncontrado.quantidade >= quantidade){
                 itemEncontrado.quantidade = itemEncontrado.quantidade - quantidade;
-            } else {
+            }else{
                 itemEncontrado.quantidade = 0;
             }
-        } else {
+        }else{
             return;
         }
         return;
     }
+
     if (origem === "pomar") {
-        const itemEncontrado = estoque[destino].find(item => item.tipo === tipo);
+        const itemEncontrado = estoque[destino].find(item => item.tipo === tipo);    
+        
         if (itemEncontrado) {
             itemEncontrado.quantidade += quantidade;
-        } else {
+        }else{
             estoque[destino].push({ tipo, quantidade });
         }
         return;
-    }
-    else {
+    }else{
         let itemOrigem = estoque[origem].find(item => item.tipo === tipo);
         let itemDestino = estoque[destino].find(item => item.tipo === tipo);
 
-        if (!itemOrigem) {
+        if(!itemOrigem){
             return;
-        }
-        else if (itemOrigem.quantidade < quantidade) {
+        }else if(itemOrigem.quantidade < quantidade){
             if (itemDestino) {
                 itemDestino.quantidade += itemOrigem.quantidade;
-            } else {
+            }else{
                 estoque[destino].push({ tipo: tipo, quantidade: itemOrigem.quantidade });
             }
             itemOrigem.quantidade = 0;
-        }
-
-        else {
+        }else{
             if (itemDestino) {
                 itemDestino.quantidade += quantidade;
-            } else {
+            }else{
                 estoque[destino].push({ tipo, quantidade });
             }
             itemOrigem.quantidade = itemOrigem.quantidade - quantidade;
@@ -78,4 +71,8 @@ function transacaoNoEstoque(origem, destino, tipo, quantidade) {
     return;
 }
 
-export {getEstoque, limpaEstoque, transacaoNoEstoque};
+function limpaEstoque() {
+    estoque = {};
+}
+
+export {getEstoque,transacaoNoEstoque,limpaEstoque};
