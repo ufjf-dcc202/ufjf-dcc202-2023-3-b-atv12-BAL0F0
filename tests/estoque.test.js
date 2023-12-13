@@ -21,9 +21,9 @@ test('O estoque deve começar três maçãs no total', () => {
   expect(estoque['joao']).toHaveLength(1);
   expect(estoque['maria']).toHaveLength(1);
   expect(estoque['maria'][0].tipo).toBe('maca');
-  expect(estoque['maria'][0].qtd).toBe(2);
+  expect(estoque['maria'][0].quantidade).toBe(2);
   expect(estoque['joao'][0].tipo).toBe('maca');
-  expect(estoque['joao'][0].qtd).toBe(1);
+  expect(estoque['joao'][0].quantidade).toBe(1);
 
 });
 
